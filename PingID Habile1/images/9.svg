@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 48" width="320" height="48">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap');
+            text {
+                font-family: 'Montserrat', sans-serif;
+            }
+        </style>
+    </defs>
+    
+    <text x="0" y="20" font-size="14" font-weight="400" fill="#111111">Utilisez votre mot de passe HABILE pour</text>
+    <text x="0" y="42" font-size="14" font-weight="400" fill="#111111">accéder au portail self-service PingID.</text>
+    
+</svg>

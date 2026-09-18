@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/send", "destination": "/api/send.js" },
+    { "source": "/api/config", "destination": "/api/config.js" }
+  ]
+}

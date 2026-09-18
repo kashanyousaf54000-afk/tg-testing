@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="75" viewBox="0 0 430 75">
+        <style>
+            .desc { font-family: Verdana, Arial, sans-serif; font-size: 11.5px; fill: #666666; }
+        </style>
+        <text x="0" y="14" class="desc">Contactez l'administrateur Mondial Relay de votre société afin qu'il vous autorise</text>
+        <text x="0" y="31" class="desc">l'accès. Si votre société utilise les services Mondial Relay mais ne dispose pas</text>
+        <text x="0" y="48" class="desc">d'un compte sur Connect@Mondial Relay, contactez votre référent technique</text>
+        <text x="0" y="65" class="desc">chez Mondial Relay</text>
+    </svg>

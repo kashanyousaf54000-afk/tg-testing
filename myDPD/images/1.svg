@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 40" width="350" height="40">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&amp;display=swap');
+            text {
+                font-family: 'Montserrat', sans-serif;
+            }
+        </style>
+    </defs>
+    
+    <text x="175" y="30" font-size="28" font-weight="400" fill="#3B3B3B" text-anchor="middle">myDPD for Business</text>
+    
+</svg>
